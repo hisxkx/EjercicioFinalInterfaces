@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visor 3D - Spline</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #111;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  header, footer {
+    background-color: #222;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .viewer-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  spline-viewer {
+    width: 100%;
+    height: 100%;
+  }
+
+  .loader {
+    position: absolute;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #111;
+    z-index: 10;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .loader img {
+    width: 200px;
+    margin-bottom: 1rem;
+  }
+
+  .loader h2 {
+    font-size: 2rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  /* 📱 Tablets */
+  @media (max-width: 768px) {
+    .loader img {
+      width: 150px;
+    }
+
+    .loader h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* 📱 Celulares */
+  @media (max-width: 480px) {
+    .loader img {
+      width: 120px;
+    }
+
+    .loader h2 {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>Bassassin Interactive Room!!</h1>
+  </header>
+
+  <div class="viewer-container">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
+    
+    <spline-viewer 
+      id="myViewer"
+      loading-anim-type="none" 
+      url="https://prod.spline.design/MoC3BtA0Jv8GWomK/scene.splinecode">
+    </spline-viewer>
+
+    <div class="loader" id="loader">
+      <img src="Logo Bassassin B.png" alt="Logo de carga">
+     <h2>Loading model...<br>Music and full energy!</h2>
+
+    </div>
+  </div>
+
+  <footer>
+    Proyecto final Interfaces c:
+  </footer>
+
+  <script>
+    const viewer = document.getElementById("myViewer");
+    const loader = document.getElementById("loader");
+
+    viewer.addEventListener("load", () => {
+      loader.style.display = "none";
+    });
+
+    // Seguridad: oculta el loader si el evento no se dispara en 10s
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 10000);
+  </script>
+
+</body>
+</html>
