@@ -1,0 +1,270 @@
+/* Estilos generales */
+:root {
+    --primary-color: #003366; /* Azul oscuro (institucional o principal) */
+    --secondary-color: #ff9800; /* Naranja/Amarillo para destacar */
+    --text-color: #333;
+    --bg-light: #f4f4f4;
+    --bg-dark: #222;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+/* MAIN CONTENT */
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+.project-info p {
+    margin-bottom: 20px;
+    font-size: 1.05em;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex: 1 1 calc(33% - 20px);
+    min-width: 280px;
+}
+
+.feature-item h3 {
+    color: var(--secondary-color);
+    margin-top: 0;
+}
+
+/* SLIDE BAR DE COLORES (Feature 2) */
+.color-indicator {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-top: 15px;
+    background-color: #fff;
+}
+
+.color-meter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 80%;
+    height: 10px;
+    /* Gradiente Verde (cerca) a Rojo (lejos) */
+    background: linear-gradient(to right, #0be42f, #FF0000); 
+    outline: none;
+    opacity: 0.8;
+    transition: opacity .2s;
+    border-radius: 5px;
+}
+
+/* Estilo para el thumb (bolita) del slider en navegadores basados en WebKit (Chrome, Safari) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    /* Usa la variable dinámica establecida por JS */
+    background: var(--thumb-color, #FF0000); 
+    cursor: grab;
+    border: 3px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para el thumb (bolita) del slider en Firefox */
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    /* Usa la variable dinámica establecida por JS */
+    background: var(--thumb-color, #FF0000); 
+    cursor: grab;
+    border: 3px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* ESTILO PARA EL TRIÁNGULO DE COLOR (color-display) */
+.color-display {
+    --triangle-size: 30px; /* Tamaño base para los lados del triángulo */
+    --triangle-height: calc(var(--triangle-size) * 0.866); /* Altura de un triángulo equilátero */
+    --triangle-color: #FF0000; /* Color inicial (Rojo) */
+
+    width: 0;
+    height: 0;
+    border-left: var(--triangle-size) solid transparent;
+    border-right: var(--triangle-size) solid transparent;
+    border-bottom: var(--triangle-height) solid var(--triangle-color);
+    position: relative; /* Contiene la "B" */
+    
+    /* Estos dos se eliminan ya que la 'B' se posiciona con 'absolute' */
+    /* display: flex; 
+    justify-content: center; */
+    
+    transition: border-bottom-color 0.3s ease;
+    
+    /* Ajuste para mover el triángulo al mismo nivel del slider (sin cambio) */
+    margin-top: calc(var(--triangle-height) / 2 * -1);
+    padding-bottom: calc(var(--triangle-height) / 2);
+}
+
+/* CORRECCIÓN FINAL PARA CENTRAR LA 'B' */
+.block-letter {
+    position: absolute;
+    color: rgb(42, 33, 83);
+    font-size: 1.2em;
+    font-weight: bold;
+    /* Ajuste para centrar horizontalmente */
+    left: 50%;
+    /* Ajuste para centrar verticalmente, bajándola un poco del centro geométrico del borde inferior */
+    top: calc(var(--triangle-height) / 10); 
+    /* Translación para alinear el centro de la 'B' con el punto calculado */
+    transform: translate(-50%, -50%); 
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+.distance-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.distance-labels span:first-child { color: #0be42f; } /* 1 mt es Verde (cerca) */
+.distance-labels span:last-child { color: #FF0000; } /* 100+ mts es Rojo (lejos) */
+
+
+/* IMAGEN DE EJEMPLO */
+.image-example {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+    text-align: center;
+}
+
+.image-example h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.image-example img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* SKETCHFAB EMBED */
+.model-view h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+}
+
+.sketchfab-embed-wrapper {
+    position: relative;
+    height: 600px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}
+
+.sketchfab-embed-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.aux-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.95em;
+}
+
+.aux-link a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.aux-link a:hover {
+    text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--bg-dark);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .feature-item {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 600px) {
+    .feature-item {
+        flex: 1 1 100%;
+    }
+    header h1 {
+        font-size: 1.5em;
+    }
+    .sketchfab-embed-wrapper {
+        height: 400px;
+    }
+    .image-example img {
+        max-width: 100%;
+    }
+}

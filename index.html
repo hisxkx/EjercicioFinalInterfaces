@@ -1,215 +1,127 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Visor 3D - Spline</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #111;
-      font-family: Arial, sans-serif;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-
-    header, footer {
-      background-color: #222;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .viewer-container {
-      flex: 1;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    spline-viewer {
-      width: 100%;
-      height: 100%;
-      display: none;
-    }
-
-    .loader, .instructions {
-      position: absolute;
-      top: 0; left: 0;
-      right: 0; bottom: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #111;
-      z-index: 10;
-      padding: 1rem;
-      overflow-y: auto;
-      text-align: center;
-    }
-
-    .loader img {
-      width: 200px;
-      margin-bottom: 1rem;
-    }
-
-    .loader h2 {
-      font-size: 2rem;
-      margin: 0;
-      line-height: 1.2;
-    }
-
-    .instructions h2 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .instructions p {
-      max-width: 600px;
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-
-    .controls {
-      margin-top: 1rem;
-      font-size: 1rem;
-      text-align: left;
-    }
-
-    .image-explainer {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      background-color: #1a1a1a;
-      padding: 1rem;
-      border-radius: 12px;
-      max-width: 800px;
-      width: 100%;
-    }
-
-    .image-explainer img {
-      width: 100px;
-      border-radius: 8px;
-    }
-
-    .image-explainer p {
-      margin: 0;
-      text-align: left;
-      font-size: 1rem;
-    }
-
-    .instructions button {
-      margin-top: 2rem;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      background-color: #00ffcc;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .instructions button:hover {
-      background-color: #00ccaa;
-    }
-
-    /* Tablets */
-    @media (max-width: 768px) {
-      .loader img { width: 150px; }
-      .loader h2, .instructions h2 { font-size: 1.5rem; }
-      .instructions p, .controls, .image-explainer p { font-size: 1rem; }
-      .image-explainer img { width: 80px; }
-      .image-explainer { flex-direction: column; text-align: center; }
-    }
-
-    /* Celulares */
-    @media (max-width: 480px) {
-      .loader img { width: 120px; }
-      .loader h2, .instructions h2 { font-size: 1.2rem; }
-      .instructions p, .controls, .image-explainer p { font-size: 0.95rem; }
-      .image-explainer img { width: 100%; max-width: 220px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo Rediseño Vialización</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>Know About Bassassin and D&B!!</h1>
-  </header>
+    <header>
+        <h1>Prototipo rediseño de la vialización en la universidad</h1>
+    </header>
 
-  <div class="viewer-container">
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
-    
-    <spline-viewer 
-      id="myViewer"
-      loading-anim-type="none" 
-      url="https://prod.spline.design/MoC3BtA0Jv8GWomK/scene.splinecode">
-    </spline-viewer>
+    <main>
+        <section class="project-info">
+            <h2>Acerca del Proyecto: Rediseño de Señales UMNG</h2>
+            <p>Este proyecto se centra en el **rediseño de las señales viales** del recorrido dentro de la Universidad Militar Nueva Granada (UMNG), específicamente desde la entrada principal hasta el Bloque de Salones B. Nuestro objetivo es crear un sistema de orientación más **inclusivo, intuitivo y estético**.</p>
+            
+            <div class="features">
+                
+                <div class="feature-item">
+                    <h3>1. Inclusión con Braille y Audio-Guía</h3>
+                    <p>Todas las señales incluyen texto en **Braille** y un sistema de **Audio-Guía** (mediante códigos QR o NFC) para asistir a personas con discapacidad visual, asegurando una navegación autónoma y segura.</p>
+                </div>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-      <img src="Logo Bassassin B.png" alt="Logo de carga">
-      <h2>Loading model...<br>Music and full energy!</h2>
-    </div>
+                <div class="feature-item">
+                    <h3>2. Sistema de Colores de Proximidad (Caliente/Frío)</h3>
+                    <p>Implementamos un sistema de colores para indicar la proximidad a tu destino (en este caso al Bloque B). El color de las señales cambia gradualmente, siguiendo la lógica "Caliente-Frío":</p>
+                    
+                    <div class="color-indicator">
+                        <div class="meter-label">Distancia al Bloque B:</div>
+                        <div class="color-meter">
+                            <input type="range" min="1" max="100" value="100" class="slider" id="distanceRange" style="--thumb-color: rgb(255, 0, 0);">
+                            <div class="color-display" id="colorDisplay">
+                                <span class="block-letter">B</span>
+                            </div>
+                        </div>
+                        <div class="distance-labels">
+                            <span>1 mt (Verde)</span>
+                            <span>100+ mts (Rojo)</span>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Pantalla de instrucciones -->
-    <div class="instructions" id="instructions">
-      <h2>Welcome to the DJ 3D Experience!</h2>
-      <p>Interact with the 3D environment like a true DJ!</p>
+                <div class="feature-item">
+                    <h3>3. Figuras Geométricas Únicas por Edificio</h3>
+                    <p>Cada edificio importante cuenta con un símbolo geométrico único (ej: **TRIÁNGULO** para el Bloque B). Estos símbolos, junto a la letra del bloque y texto en **Braille**, están discretamente ubicados en las paredes para ofrecer una referencia visual no invasiva pero altamente útil para la orientación.</p>
+                </div>
 
-      <div class="controls">
-        <p>🖱️ Right click → Move</p>
-        <p>🖱️ Left click → Rotate</p>
-        <p>🖱️ Middle wheel → Zoom in/out</p>
-      </div>
+            </div>
 
-      <!-- Explicación visual de los botones -->
-      <div class="image-explainer">
-        <img src="MusicExplain.png" alt="Play music">
-        <p>Move the button to the right to start the music.</p>
-      </div>
+            <div class="image-example">
+                <h3>Esta es una muestra de uno de nuestros carteles:</h3>
+                <img src="Cartel_ejemplo.png" alt="Ejemplo de cartel de señalización">
+            </div>
 
-      <div class="image-explainer">
-        <img src="MusicExplain02.png" alt="Stop music">
-        <p>Click the red cube to stop the music.</p>
-      </div>
+        </section>
 
-      <div class="image-explainer">
-        <img src="BiografyButton.png" alt="Next page">
-        <p>Hold down the button to reveal the next page.</p>
-      </div>
+        <hr>
 
-      <button onclick="startExperience()">Explore model</button>
-    </div>
-  </div>
+        <section class="model-view">
+            <h2>Recorre nuestro rediseño justo aquí :)</h2>
+            
+            <div class="sketchfab-embed-wrapper"> 
+                <iframe title="Rediseño recorrido de la U" 
+                        frameborder="0" 
+                        allowfullscreen 
+                        mozallowfullscreen="true" 
+                        webkitallowfullscreen="true" 
+                        allow="autoplay; fullscreen; xr-spatial-tracking" 
+                        xr-spatial-tracking 
+                        execution-while-out-of-viewport 
+                        execution-while-not-rendered 
+                        web-share 
+                        src="https://sketchfab.com/models/4558a116cb134b409702ff57c8125527/embed">
+                </iframe> 
+                <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> 
+                    <a href="https://sketchfab.com/3d-models/rediseno-recorrido-de-la-u-4558a116cb134b409702ff57c8125527" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Rediseño recorrido de la U </a> 
+                    by <a href="https://sketchfab.com/Hisxkx" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Hisxkx </a> 
+                    on <a href="https://sketchfab.com" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                </p>
+            </div>
+            
+            <p class="aux-link">
+                Si el visor 3D no carga, puedes acceder al modelo directamente en <a href="https://skfb.ly/pCtvA" target="_blank" rel="noopener noreferrer">Sketchfab aquí</a>.
+            </p>
+            
+        </section>
+    </main>
 
-  <footer>
-    Proyecto final Interfaces
-  </footer>
+    <footer>
+        <p>Hecho por Juan, Daren y Charlos</p>
+    </footer>
 
-  <script>
-    const viewer = document.getElementById("myViewer");
-    const loader = document.getElementById("loader");
-    const instructions = document.getElementById("instructions");
+    <script>
+        // Lógica para el cambio de color del slide bar y el thumb
+        const range = document.getElementById('distanceRange');
+        const colorDisplay = document.getElementById('colorDisplay');
 
-    function startExperience() {
-      instructions.style.display = "none";
-      viewer.style.display = "block";
-    }
+        function interpolateColor(color1, color2, factor) {
+            const result = color1.slice();
+            for (let i = 0; i < 3; i++) {
+                result[i] = Math.round(result[i] + factor * (color2[i] - result[i]));
+            }
+            return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
+        }
 
-    viewer.addEventListener("load", () => {
-      loader.style.display = "none";
-    });
+        function updateColor() {
+            const value = range.value;
+            const factor = (value - 1) / 99;
 
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 10000);
-  </script>
+            const green = [11, 228, 47];
+            const red = [255, 0, 0];
+
+            const currentColor = interpolateColor(green, red, factor);
+            
+            colorDisplay.style.setProperty('--triangle-color', currentColor);
+            range.style.setProperty('--thumb-color', currentColor);
+        }
+
+        range.addEventListener('input', updateColor);
+        updateColor();
+    </script>
 
 </body>
 </html>
